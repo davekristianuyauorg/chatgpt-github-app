@@ -13,18 +13,22 @@ pub async fn run() {
     dotenv().ok();
 
     let login: String = match env::var("login") {
+        Err(_) => "".to_string(),
         Ok(name) => name,
     };
 
     let owner: String = match env::var("owner") {
+        Err(_) => "".to_string(),
         Ok(name) => name,
     };
 
     let repo: String = match env::var("repo") {
+        Err(_) => "".to_string(),
         Ok(name) => name,
     };
 
     let openai_key_name: String = match env::var("openai_key_name") {
+        Err(_) => "".to_string(),
         Ok(name) => name,
     };
 
