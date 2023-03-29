@@ -90,8 +90,7 @@ async fn handler(
 
             let co = ChatOptions {
                 model: ChatModel::GPT4,
-                restart: true,
-                restarted_sentence: Some(&prompt),
+                restart: true
             };
 
             if let Some(r) = chat_completion(
