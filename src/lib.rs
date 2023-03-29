@@ -13,22 +13,22 @@ pub async fn run() {
     dotenv().ok();
 
     let login: String = match env::var("login") {
-        Err(_) => "".to_string(),
+        Err(_) => "alabulei1".to_string(),
         Ok(name) => name,
     };
 
     let owner: String = match env::var("owner") {
-        Err(_) => "".to_string(),
+        Err(_) => "second-state".to_string(),
         Ok(name) => name,
     };
 
     let repo: String = match env::var("repo") {
-        Err(_) => "".to_string(),
+        Err(_) => "chat-with-chatgpt".to_string(),
         Ok(name) => name,
     };
 
     let openai_key_name: String = match env::var("openai_key_name") {
-        Err(_) => "".to_string(),
+        Err(_) => "chatmichael".to_string(),
         Ok(name) => name,
     };
 
@@ -88,14 +88,17 @@ async fn handler(
             let body = e.issue.body.unwrap_or("".to_string());
             let q = title + "\n" + &body;
 
+            let prompt = "Answering questions on GitHub.";
             let co = ChatOptions {
                 model: ChatModel::GPT4,
-                restart: true
+                restart: true,
+                restarted_sentence: Some(&prompt),
             };
 
             if let Some(r) = chat_completion(
                 openai_key_name,
                 &format!("issue#{}", e.issue.number),
+                &prompt,
                 &co,
             ) {
                 match issues.create_comment(e.issue.number, r.choice).await {
