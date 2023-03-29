@@ -13,22 +13,22 @@ pub async fn run() {
     dotenv().ok();
 
     let login: String = match env::var("login") {
-        Err(_) => "alabulei1".to_string(),
+        Err(_) => "davekristianuyau".to_string(),
         Ok(name) => name,
     };
 
     let owner: String = match env::var("owner") {
-        Err(_) => "second-state".to_string(),
+        Err(_) => "davekristianuyauorg".to_string(),
         Ok(name) => name,
     };
 
     let repo: String = match env::var("repo") {
-        Err(_) => "chat-with-chatgpt".to_string(),
+        Err(_) => "chatgpt-github-app".to_string(),
         Ok(name) => name,
     };
 
     let openai_key_name: String = match env::var("openai_key_name") {
-        Err(_) => "chatmichael".to_string(),
+        Err(_) => "mykey".to_string(),
         Ok(name) => name,
     };
 
