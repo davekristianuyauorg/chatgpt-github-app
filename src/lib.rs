@@ -13,22 +13,18 @@ pub async fn run() {
     dotenv().ok();
 
     let login: String = match env::var("login") {
-        Err(_) => "alabulei1".to_string(),
         Ok(name) => name,
     };
 
     let owner: String = match env::var("owner") {
-        Err(_) => "second-state".to_string(),
         Ok(name) => name,
     };
 
     let repo: String = match env::var("repo") {
-        Err(_) => "chat-with-chatgpt".to_string(),
         Ok(name) => name,
     };
 
     let openai_key_name: String = match env::var("openai_key_name") {
-        Err(_) => "chatmichael".to_string(),
         Ok(name) => name,
     };
 
@@ -88,7 +84,6 @@ async fn handler(
             let body = e.issue.body.unwrap_or("".to_string());
             let q = title + "\n" + &body;
 
-            let prompt = "You are a helpful assistant answering questions on GitHub. In your response, you can use simple markdown text to format your answers.\n\n If someone greets you without asking a question, you should simply respond \"Hello, I am your assistant on GitHub, built by the Second State team. I am ready for your question now!\" \n\n".to_owned() + &q + "\n```";
             let co = ChatOptions {
                 model: ChatModel::GPT4,
                 restart: true,
@@ -98,7 +93,6 @@ async fn handler(
             if let Some(r) = chat_completion(
                 openai_key_name,
                 &format!("issue#{}", e.issue.number),
-                &prompt,
                 &co,
             ) {
                 match issues.create_comment(e.issue.number, r.choice).await {
